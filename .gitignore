@@ -1,2 +1,4 @@
 **/*.sav
-*/__pycache__/**\n
+*/__pycache__/**
+.idea/*
+*/.ipynb_checkpoints/*
