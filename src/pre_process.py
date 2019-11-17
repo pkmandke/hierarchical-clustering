@@ -58,9 +58,9 @@ class Doc2vec_wrapper:
 
         del self.dframe
     
-    def load_model_and_build_vocab(self, vector_size=20, min_count=2, epochs=20, workers=1):
+    def load_model_and_build_vocab(self, vector_size=20, min_count=2, epochs=20, workers=1, dbow_words=0):
 
-        self.model = gensim.models.doc2vec.Doc2Vec(vector_size=vector_size, min_count=min_count, epochs=epochs, workers=workers)
+        self.model = gensim.models.doc2vec.Doc2Vec(vector_size=vector_size, min_count=min_count, dbow_words=dbow_words, epochs=epochs, workers=workers)
         self.model.build_vocab(self.train_corpus)
 
     def train(self):

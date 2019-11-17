@@ -12,18 +12,18 @@ from datetime import timedelta
 
 def main():
     t1 = time.monotonic()
-
-    model = gensim.models.doc2vec.Doc2Vec.load('../obj/doc2vec/abstracts_etd_doc2vec_5000_docs')
     
-    doc_vectors, keys = extract_mapped_doc2vecs(model)
-    
-    km_obj = kmeans.Kmeans(doc_list=keys, n_clusters=10, init='k-means++', n_init=3, n_jobs=5, random_state=42, verbose=1, algorithm='full')
+    doc2vec_model = Doc2vec_wrapper(json_path='../data/30Kmetadata.json', n_docs=-1)
 
-    km_obj.fit(doc_vectors)
+    doc2vec_model.generate_tokens()
+    print("Tokens generated in {}s".format(timedelta(seconds=time.monotonic() - t1)))
 
-    km_obj.save('abstracts_etd_doc2vec_5000_docs_kmeans.sav')
+    doc2vec_model.load_model_and_build_vocab(vector_size=128, min_count=4, dbow_words=0, epochs=15, workers=5)
 
+    doc2vec_model.train()
 
-    print("Time taken {}s".format(timedelta(time.monotonic() - t1)))
+    doc2vec_model.save_model(path='../obj/doc2vec/abstracts_etd_doc2vec_all_docs')
+
+    print("Time taken {}s".format(timedelta(seconds=time.monotonic() - t1)))
 
 main()
