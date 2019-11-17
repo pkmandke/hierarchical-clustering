@@ -1,4 +1,5 @@
 '''
+
 Agglomerative clustering
 
 '''
@@ -13,9 +14,10 @@ import joblib
 
 class Agglo_clus:
     
-    def __init__(self, tfidf_mtx, doc_names, num_clus=20, linkage='ward', affinity='euclidean'):
+    def __init__(self, feature_matrix, doc_names, num_clus=20, linkage='ward', affinity='euclidean', iter_='1'):
         
-        self.tfidf = tfidf_mtx
+        self.feature_matrix = feature_matrix
+        self.iter = iter_
         self.doc_names = doc_names;
         self.num_clus = num_clus
         self.linkage = linkage
@@ -26,8 +28,8 @@ class Agglo_clus:
         print("Starting clustering...");
         t1 = time.monotonic()
         agg_clus = AC(n_clusters=self.num_clus, affinity=self.affinity, linkage=self.linkage)
-        self.predictions = agg_clus.fit_predict(self.tfidf)
+        self.predictions = agg_clus.fit_predict(self.feature_matrix)
         print("Done training in {}s".format(timedelta(seconds=time.monotonic() - t1)))
         
     def save(self, name='agglo_clus_1.sav'):
-        joblib.dump(self, '../obj/' + name)
+        joblib.dump(self, '../obj/agglo_clus/iter_' + self.iter + '/' + name)

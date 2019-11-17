@@ -70,3 +70,13 @@ class Doc2vec_wrapper:
     def save_model(self, path='../obj/abstracts_etd_doc2vec_'):
         path += str(self.tot_len) + '_docs'
         self.model.save(path)
+        
+def extract_mapped_doc2vecs(model):
+    inferred_vector = model.infer_vector(['a', 'b', 'c', 'd'])
+    sims = model.docvecs.most_similar([inferred_vector], topn=len(model.docvecs))
+
+    keys_ = [tup[0] for tup in sims]
+
+    doc_vectors = [model.docvecs[key] for key in keys_]
+
+    return doc_vectors, keys_

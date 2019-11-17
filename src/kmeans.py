@@ -89,7 +89,7 @@ class TFIDF:
 
 class Kmeans:
 
-    def __init__(self, doc_list, n_clusters=10, init='k-means++', n_init=3, n_jobs=5, random_state=42, verbose=1, algorithm='full'):
+    def __init__(self, doc_list, n_clusters=10, init='k-means++', n_init=3, n_jobs=5, random_state=42, verbose=1, algorithm='full', iter_='1'):
 
         self.doc_list = doc_list
         self.n_clusters = n_clusters
@@ -97,6 +97,7 @@ class Kmeans:
         self.init = init
         self.n_init = n_init
         self.algorithm = algorithm
+        self.iter = iter_
 
         self.km = KMeans(n_clusters=self.n_clusters, init=self.init, n_init=self.n_init, \
                          verbose=verbose, random_state=self.rand_state, algorithm=self.algorithm)
@@ -112,7 +113,7 @@ class Kmeans:
         return cb_score(data.todense(), self.km.labels_)
 
     def save(self, filename):
-        joblib.dump(self, filename)
+        joblib.dump(self, '../obj/kmeans/iter_' + self.iter + '/' + filename)
 
 
 class Doc_iter:

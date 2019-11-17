@@ -4,7 +4,7 @@ Trigger script
 
 
 from pre_process import Doc2vec_wrapper, extract_mapped_doc2vecs
-import kmeans
+from agglo_clus import Agglo_clus as ag    
 import gensim
 
 import time
@@ -17,12 +17,10 @@ def main():
     
     doc_vectors, keys = extract_mapped_doc2vecs(model)
     
-    km_obj = kmeans.Kmeans(doc_list=keys, n_clusters=10, init='k-means++', n_init=3, n_jobs=5, random_state=42, verbose=1, algorithm='full')
+    ag_obj = ag(doc_vectors, doc_names = keys, num_clus = 10, linkage='ward', affinity='euclidean', iter_='1')
 
-    km_obj.fit(doc_vectors)
-
-    km_obj.save('abstracts_etd_doc2vec_5000_docs_kmeans.sav')
-
+    ag_obj.clusterize()
+    ag_obj.save(name='abstracts_etd_doc2vec_5000_docs_ag_clus.sav')
 
     print("Time taken {}s".format(timedelta(time.monotonic() - t1)))
 
