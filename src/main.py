@@ -5,7 +5,7 @@ Trigger script
 
 from pre_process import Doc2vec_wrapper
 
-def main()
+def main():
     
     doc2vec_model = Doc2vec_wrapper(json_path='../data/30Kmetadata.json', n_docs=5000)
     
