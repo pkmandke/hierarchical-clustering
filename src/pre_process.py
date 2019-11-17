@@ -36,7 +36,11 @@ class Doc2vec_wrapper:
         for idx in range(self.tot_len):
             
             document = self.dframe.iloc[idx]['description-abstract']
-            tokens = nltk.word_tokenize(document.lower().translate(str.maketrans('', '', string.punctuation)))
+            if type(document) == str:
+                tokens = nltk.word_tokenize(document.lower().translate(str.maketrans('', '', string.punctuation)))
+            else:
+                continue
+            
             stems = []
             
             for item in tokens:
