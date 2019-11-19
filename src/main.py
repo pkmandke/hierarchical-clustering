@@ -17,7 +17,7 @@ def main():
     
     doc_vectors, keys = extract_mapped_doc2vecs(model)
     
-    km_obj = kmeans.Kmeans(doc_list=keys, n_clusters=500, init='k-means++', n_init=2, n_jobs=10, random_state=42, verbose=1, algorithm='full', iter='2')
+    km_obj = kmeans.Kmeans(doc_list=keys, n_clusters=500, init='k-means++', n_init=2, n_jobs=10, random_state=42, verbose=1, algorithm='full', iter_='2')
 
     km_obj.fit(doc_vectors)
 
